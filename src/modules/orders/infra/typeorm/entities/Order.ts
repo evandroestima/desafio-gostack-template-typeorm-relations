@@ -6,10 +6,10 @@ import {
   ManyToOne,
   JoinColumn,
   OneToMany,
-} from 'typeorm';
+} from "typeorm";
 
-import Customer from '@modules/customers/infra/typeorm/entities/Customer';
-import OrdersProducts from '@modules/orders/infra/typeorm/entities/OrdersProducts';
+import Customer from "@modules/customers/infra/typeorm/entities/Customer";
+import OrdersProducts from "@modules/orders/infra/typeorm/entities/OrdersProducts";
 
 class Order {
   id: string;
