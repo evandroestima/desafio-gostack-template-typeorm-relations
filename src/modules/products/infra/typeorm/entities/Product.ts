@@ -9,6 +9,7 @@ import {
 
 import OrdersProducts from "@modules/orders/infra/typeorm/entities/OrdersProducts";
 
+@Entity("products")
 class Product {
   @PrimaryGeneratedColumn("uuid")
   id: string;
@@ -22,8 +23,8 @@ class Product {
   @Column()
   quantity: number;
 
-  @Column()
-  order_products: OrdersProducts[];
+  /* @Column()
+  order_products: OrdersProducts[]; */
 
   @CreateDateColumn()
   created_at: Date;
