@@ -1,11 +1,11 @@
 import { MigrationInterface, QueryRunner, Table } from "typeorm";
 
-export default class CreateProductsTable1596740404263
+export default class CreateOrdersProductsTableManyToMany1596740462140
   implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
-        name: "products",
+        name: "orders_products",
         columns: [
           {
             name: "id",
@@ -13,11 +13,6 @@ export default class CreateProductsTable1596740404263
             isPrimary: true,
             generationStrategy: "uuid",
             default: "uuid_generate_v4()",
-          },
-          {
-            name: "name",
-            type: "varchar",
-            isUnique: true,
           },
           {
             name: "price",
@@ -30,6 +25,14 @@ export default class CreateProductsTable1596740404263
             type: "integer",
           },
           {
+            name: "product_id",
+            type: "uuid",
+          },
+          {
+            name: "order_id",
+            type: "uuid",
+          },
+          {
             name: "created_at",
             type: "timestamp",
             default: "now()",
@@ -40,11 +43,29 @@ export default class CreateProductsTable1596740404263
             default: "now()",
           },
         ],
+        foreignKeys: [
+          {
+            name: "OrdersProducts_product",
+            referencedTableName: "products",
+            referencedColumnNames: ["id"],
+            columnNames: ["product_id"],
+            onDelete: "CASCADE",
+            onUpdate: "CASCADE",
+          },
+          {
+            name: "OrdersProducts_order",
+            referencedTableName: "orders",
+            referencedColumnNames: ["id"],
+            columnNames: ["order_id"],
+            onDelete: "CASCADE",
+            onUpdate: "CASCADE",
+          },
+        ],
       })
     );
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable("products");
+    await queryRunner.dropTable("orders_products");
   }
 }
